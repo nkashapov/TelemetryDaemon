@@ -17,7 +17,8 @@ CONFIG += sailfishapp
 QT += dbus
 
 SOURCES += src/telemetry.cpp \
-    src/tmess.cpp
+    src/tmess.cpp \
+    src/tmessadaptor.cpp
 
 DISTFILES += qml/telemetry.qml \
     qml/cover/CoverPage.qml \
@@ -44,4 +45,5 @@ TRANSLATIONS += translations/telemetry-de.ts
 
 HEADERS += \
     tmess.h \
+    tmessadaptor.h \
     servicenameandproperty.h

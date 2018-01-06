@@ -28,35 +28,37 @@
   SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#ifdef QT_QML_DEBUG
-#include <QtQuick>
-#endif
-#include <QDebug>
-#include <QCoreApplication>
-#include <QDBusConnection>
-#include <QDBusError>
 #include <sailfishapp.h>
 #include "tmess.h"
 #include "servicenameandproperty.h"
 
+#include <QCoreApplication>
+#include <QDBusConnection>
+#include <QDBusError>
+#include <QDebug>
+
 int main(int argc, char *argv[])
 {
-
     QCoreApplication a(argc, argv);
-    QDBusConnection connection = QDBusConnection::sessionBus();
-    TMess tmess;
-    if( ! connection.registerObject("/ru/sonarh/dbus/telemetry", &tmess)){
-           fprintf(stderr, "%s\n",
-                   qPrintable("Can't register object"));
-           exit(1);
-       }
-       qDebug()<<"Telemetry connected to D-bus";
 
-       if (!connection.registerService(SERVICE_NAME)) {
-           fprintf(stderr, "%s\n",
-                   qPrintable(QDBusConnection::sessionBus().lastError().message()));
-           exit(1);
-       }
-       qDebug()<<"Test service start";
-       return a.exec();
+    auto connection = QDBusConnection::sessionBus();
+    TMess tmess;
+
+    if (!connection.registerObject(PATH, &tmess))
+    {
+        fprintf(stderr, "%s\n", qPrintable("Can't register object"));
+        exit(1);
+    }
+
+    qDebug() << "Telemetry connected to D-bus";
+
+    if (!connection.registerService(SERVICE_NAME))
+    {
+        auto message = QDBusConnection::sessionBus().lastError().message();
+        fprintf(stderr, "%s\n", qPrintable(message));
+        exit(1);
+    }
+
+    qDebug() << "Test service start";
+    return a.exec();
 }
