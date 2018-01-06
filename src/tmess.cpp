@@ -9,7 +9,7 @@
 
 struct TMess::Impl
 {
-    QScopedPointer<TMessAdaptor> adaptor;
+    TMessAdaptor* adaptor = nullptr;
 };
 
 TMess::TMess() :
@@ -17,7 +17,7 @@ TMess::TMess() :
     QDBusContext(),
     d(new Impl)
 {
-    d->adaptor.reset(new TMessAdaptor(this));
+    d->adaptor = new TMessAdaptor(this);
 }
 
 TMess::~TMess()
