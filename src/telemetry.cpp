@@ -30,7 +30,8 @@
 
 #include <sailfishapp.h>
 #include "tmess.h"
-#include "servicenameandproperty.h"
+#include "dbus_traits.h"
+#include "device_information.h"
 
 #include <QCoreApplication>
 #include <QDBusConnection>
@@ -44,7 +45,7 @@ int main(int argc, char *argv[])
     auto connection = QDBusConnection::sessionBus();
     TMess tmess;
 
-    if (!connection.registerObject(PATH, &tmess))
+    if (!connection.registerObject(dbus_traits::path, &tmess))
     {
         fprintf(stderr, "%s\n", qPrintable("Can't register object"));
         exit(1);
@@ -52,12 +53,17 @@ int main(int argc, char *argv[])
 
     qDebug() << "Telemetry connected to D-bus";
 
-    if (!connection.registerService(SERVICE_NAME))
+    if (!connection.registerService(dbus_traits::serviceName))
     {
         auto message = QDBusConnection::sessionBus().lastError().message();
         fprintf(stderr, "%s\n", qPrintable(message));
         exit(1);
     }
+
+    auto allInfo = DeviceInformation().allInformation();
+
+    for (const auto& key: allInfo.keys())
+        qDebug() << key << ":" << allInfo.value(key);
 
     qDebug() << "Test service start";
     return a.exec();

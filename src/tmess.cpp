@@ -1,5 +1,5 @@
 #include "tmess.h"
-#include "tmessadaptor.h"
+#include "tmess_adaptor.h"
 
 #include <QDBusConnection>
 #include <QDBusMessage>

@@ -1,4 +1,4 @@
-#include "tmessadaptor.h"
+#include "tmess_adaptor.h"
 #include "tmess.h"
 
 struct TMessAdaptor::Impl

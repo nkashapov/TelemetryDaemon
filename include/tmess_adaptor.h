@@ -1,8 +1,8 @@
-#ifndef TMESSADAPTOR_H
-#define TMESSADAPTOR_H
+#ifndef TMESS_ADAPTOR_H
+#define TMESS_ADAPTOR_H
 
 #include <QDBusAbstractAdaptor>
-#include "servicenameandproperty.h"
+#include "dbus_traits.h"
 
 class TMess;
 
@@ -25,4 +25,4 @@ private:
     const QScopedPointer<Impl> d;
 };
 
-#endif // TMESSADAPTOR_H
+#endif // TMESS_ADAPTOR_H
