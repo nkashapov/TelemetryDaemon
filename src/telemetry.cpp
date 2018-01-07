@@ -32,6 +32,7 @@
 #include "tmess.h"
 #include "dbus_traits.h"
 #include "device_information.h"
+#include "process_information.h"
 
 #include <QCoreApplication>
 #include <QDBusConnection>
@@ -64,6 +65,13 @@ int main(int argc, char *argv[])
 
     for (const auto& key: allInfo.keys())
         qDebug() << key << ":" << allInfo.value(key);
+
+    auto allProcessAttr = ProcessInformation().allProcessAttributes();
+
+    for (const auto& singleProcAttr: allProcessAttr)
+        qDebug() << singleProcAttr.name << "-"
+                 << singleProcAttr.cpuUsage << "-"
+                 << singleProcAttr.memoryUsage;
 
     qDebug() << "Test service start";
     return a.exec();

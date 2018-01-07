@@ -19,7 +19,8 @@ QT += dbus
 SOURCES += src/telemetry.cpp \
     src/tmess.cpp \
     src/tmess_adaptor.cpp \
-    src/device_information.cpp
+    src/device_information.cpp \
+    src/process_information.cpp
 
 DISTFILES += qml/telemetry.qml \
     qml/cover/CoverPage.qml \
@@ -48,6 +49,7 @@ HEADERS += \
     include/tmess.h \
     include/tmess_adaptor.h \
     include/dbus_traits.h \
-    include/device_information.h
+    include/device_information.h \
+    include/process_information.h
 
 INCLUDEPATH += include
